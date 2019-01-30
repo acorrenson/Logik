@@ -10,6 +10,10 @@ def lex(seq):
         if c == ' ':
             seq = seq[1:]
         
+        elif c in ('0', '1'):
+            yield ('value', c)
+            seq = seq[1:]
+
         elif re.match('->|et|ou', seq):
             yield ('binop', seq[0:2])
             next_position = 2
