@@ -6,7 +6,9 @@ def get_var(ast):
     var = []
     def r_get_var(ast):
         op = ast[0]
-        if op == 'symb':
+        if op == 'value':
+            return
+        elif op == 'symb':
             if ast[1] not in var:
                 var.append(ast[1])
         elif op == 'non':
@@ -17,8 +19,6 @@ def get_var(ast):
 
     r_get_var(ast)
     return var
-
-
 
 
 def make_env(var):
@@ -53,11 +53,17 @@ def evaluate_all(ast):
     var = get_var(ast)
     env, tab = make_env(var)
     
-    print(*var)
-    print('--'*(len(var)))
-    for i, row in enumerate(env):
-        print(*tab[i], end=' ')
-        print(evaluate(ast, row))
+    if len(var) > 0:
+        print("\nTruth table : \n")
+        print(*var)
+        print('--'*(len(var)))
+        
+        for i, row in enumerate(env):
+            print(*tab[i], end=' ')
+            print(evaluate(ast, row))
+    else:
+        print("\nValue : \n")
+        print(evaluate(ast, {}))
 
 
 if __name__ == '__main__':
@@ -69,8 +75,8 @@ if __name__ == '__main__':
     seq = Seq(list(tokens))
     ast = parse(seq)
     # display the AST
+    print('\nSyntax tree :\n')
     pprint(ast)
-    print("\nTruth table : \n")
     evaluate_all(ast)
 
         
