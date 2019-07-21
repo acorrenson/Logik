@@ -1,6 +1,6 @@
 # Logik
 
-This program provide a simple way to manipulate and interact with propositional logic expressions.
+A python based, easy to use environment for propositional logic.
 
 ## NOTES
 
